@@ -1,0 +1,23 @@
+.movie-search-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.full-width-form {
+  width: 100%;
+}
+
+.poster {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .poster {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.poster-filler {
+  background: #b4b4b4;
+}

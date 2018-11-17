@@ -1,3 +1,16 @@
-<p>
-  movie-search works!
-</p>
+<!-- <div *ngFor="let movie of movies | async">
+  {{movie.Title}}
+</div> -->
+
+<form class="full-width-form">
+  <mat-form-field class="movie-search-form">
+    <input matInput placeholder="Movies" aria-label="Search Movies" [matAutocomplete]="auto" [formControl]="movieSearchCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let movie of movies | async" [value]="movie.Title">
+        <span *ngIf="movie.Poster == 'N/A'" class="poster-filler">
+          <img *ngIf="movie.Poster !== 'N/A'" class="poster" aria-hidden [src]="movie.Poster" height="50"></span>
+        <span>{{movie.Title}}</span> |
+        <small>Year: {{movie.Year}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
