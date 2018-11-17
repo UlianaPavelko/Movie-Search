@@ -11,6 +11,6 @@ export class MovieSearchService {
 
   public searchMovies(searchParam: string): Observable<any> {
     return this.httpClient
-      .get<any>(`http://www.omdbapi.com/?apikey=3f29742a&t=${searchParam}`);
+      .get<any>(`http://www.omdbapi.com/?apikey=3f29742a&s=${searchParam}`);
   }
 }
