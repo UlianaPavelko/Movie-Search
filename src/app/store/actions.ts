@@ -4,7 +4,7 @@ import { Movie } from './movie';
 
 export enum MovieActionTypes {
     ADD_MOVIE = 'ADD_MOVIE',
-    REMOVE_MOVIE = 'REMOVE_MOVIE'
+    REMOVE_MOVIES = 'REMOVE_MOVIES'
 }
 
 export class AddMovie implements Action {
@@ -12,9 +12,9 @@ export class AddMovie implements Action {
     constructor(public payload: Movie) { }
 }
 
-export class RemoveMovie implements Action {
-    readonly type = MovieActionTypes.REMOVE_MOVIE;
+export class RemoveMovies implements Action {
+    readonly type = MovieActionTypes.REMOVE_MOVIES;
     constructor() { }
 }
 
-export type MovieActions = AddMovie | RemoveMovie;
+export type MovieActions = AddMovie | RemoveMovies;
