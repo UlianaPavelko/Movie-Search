@@ -13,4 +13,10 @@ export class MovieSearchService {
     return this.httpClient
       .get<any>(`http://www.omdbapi.com/?apikey=3f29742a&s=${searchParam}`);
   }
+
+
+  public getMovieById(searchParam: string): Observable<any> {
+    return this.httpClient
+      .get<any>(`http://www.omdbapi.com/?apikey=3f29742a&t=${searchParam}`);
+  }
 }

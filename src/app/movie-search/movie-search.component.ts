@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieSearchService } from 'src/app/core/movie-search.service';
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Movie } from '../store/movie';
 import * as MovieActions from '../store/actions';
 import { FormControl } from '@angular/forms';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-movie-search',
@@ -13,38 +14,45 @@ import { FormControl } from '@angular/forms';
 })
 export class MovieSearchComponent implements OnInit {
   private movies: Observable<Movie[]>;
-  movieSearchCtrl: FormControl;
+  private movieSearchControl: FormControl;
+  private selectedMovie: Movie;
 
   constructor(private movieSearchService: MovieSearchService, private store: Store<any>) {
     this.movies = this.store.select('movie');
+    this.movieSearchControl = new FormControl();
   }
 
   ngOnInit() {
-    this.movieSearchCtrl = new FormControl();
-
-    this.movieSearchCtrl.valueChanges.subscribe(
-      (mode: string) => {
-        console.log(mode);
-        this.removeMovie();
-        this.movieSearchService.searchMovies(mode).subscribe(data => {
-          if (data.Search === undefined) {
-            return;
-          }
-          for (let i = 0; i < data.Search.length; i++) {
-            this.addToMovies(data.Search[i]);
-          }
+    this.movieSearchControl.valueChanges.subscribe((searchTerm: string) => {
+      this.removeMovies();
+      this.movieSearchService.searchMovies(searchTerm).subscribe(data => {
+        if (data.Search === undefined) {
+          return;
         }
-        );
-      });
+        this.addToMovies(data.Search);
+      }
+      );
+    });
   }
 
-
-  private addToMovies(movie: Movie) {
-    this.store.dispatch(new MovieActions.AddMovie(movie));
+  private addToMovies(movies: Movie[]): void {
+    for (let i = 0; i < movies.length; i++) {
+      this.store.dispatch(new MovieActions.AddMovie(movies[i]));
+    }
   }
 
-  private removeMovie() {
-    this.store.dispatch(new MovieActions.RemoveMovie());
+  private removeMovies(): void {
+    this.store.dispatch(new MovieActions.RemoveMovies());
   }
 
+  public selectMovie(movieTitle: string): void {
+    this.movieSearchService.getMovieById(movieTitle).subscribe(data => {
+      this.selectedMovie = data;
+    }
+    );
+  }
+
+  public onSubmit(eve) {
+    this.selectMovie(this.movieSearchControl.value);
+  }
 }

@@ -1,16 +1,49 @@
-<!-- <div *ngFor="let movie of movies | async">
-  {{movie.Title}}
-</div> -->
+<div class="container">
+  <form class="full-width-form" (ngSubmit)="onSubmit($event)">
+    <mat-form-field class="movie-search-form">
+      <input matInput placeholder="Search Movies" aria-label="Search Movies" [matAutocomplete]="auto" [formControl]="movieSearchControl">
+      <mat-autocomplete #auto="matAutocomplete" class-list="movie-search">
+        <mat-option *ngFor="let movie of movies | async" [value]="movie.Title" (click)="selectMovie(movie.Title)"
+          (onSelectionChange)="selectMovie(movie.Title)">
+          <span *ngIf="movie.Poster === 'N/A'" class="poster-filler"></span>
+          <img *ngIf="movie.Poster!== 'N/A'" class="poster" aria-hidden [src]="movie?.Poster" height="90">
+          <span>{{movie.Title}}</span> |
+          <small>Year: {{movie.Year}}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <div *ngIf="selectedMovie && !selectedMovie.Title">
+    <p>Sorry, movie not found</p>
+  </div>
+  <div class="main-container" *ngIf="selectedMovie && selectedMovie.Title">
+    <div class="movie-poster">
+      <div class="container">
+        <div class="filler">
+          <img class="poster-image" *ngIf="selectedMovie.Poster !== 'N/A'" aria-hidden [src]="selectedMovie?.Poster">
+        </div>
+      </div>
+    </div>
 
-<form class="full-width-form">
-  <mat-form-field class="movie-search-form">
-    <input matInput placeholder="Movies" aria-label="Search Movies" [matAutocomplete]="auto" [formControl]="movieSearchCtrl">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let movie of movies | async" [value]="movie.Title">
-        <span *ngIf="movie.Poster == 'N/A'" class="poster-filler">
-          <img *ngIf="movie.Poster !== 'N/A'" class="poster" aria-hidden [src]="movie.Poster" height="50"></span>
-        <span>{{movie.Title}}</span> |
-        <small>Year: {{movie.Year}}</small>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+    <div class="description">
+      <div class="container">
+        <h3>
+          <a [attr.href]="selectedMovie.Website" class="title">{{selectedMovie.Title}}</a>
+          <span class="small">{{selectedMovie.Year}}</span>
+        </h3>
+        <mat-divider></mat-divider>
+        <div>
+          <div class="director" *ngIf="selectedMovie.Director !== 'N/A'">Directed By:
+            <strong>{{selectedMovie.Director}}</strong>
+          </div>
+          <div class="writer" *ngIf="selectedMovie.Writer !== 'N/A'">Written By:
+            <strong>{{selectedMovie.Writer}}</strong>
+          </div>
+          <div class="production" *ngIf="selectedMovie.Production !== 'N/A'">{{selectedMovie.Production}}</div>
+        </div>
+
+        <p>{{selectedMovie.Plot}}</p>
+      </div>
+    </div>
+  </div>
+</div>
