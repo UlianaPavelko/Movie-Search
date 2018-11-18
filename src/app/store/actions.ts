@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Movie } from './movie';
+import { Movie } from '../movie-search/movie';
 
 
 export enum MovieActionTypes {

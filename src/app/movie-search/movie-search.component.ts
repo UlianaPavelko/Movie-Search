@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieSearchService } from 'src/app/core/movie-search.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Movie } from '../store/movie';
+import { Movie } from './movie';
 import * as MovieActions from '../store/actions';
 import { FormControl } from '@angular/forms';
 
