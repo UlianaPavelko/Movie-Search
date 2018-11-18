@@ -1,0 +1,33 @@
+<div *ngIf="movie && !movie.Title">
+  <p>Sorry, movie not found</p>
+</div>
+<div class="main-container" *ngIf="movie && movie.Title">
+  <div class="movie-poster">
+    <div class="container">
+      <div class="filler">
+        <img class="poster-image" *ngIf="movie.Poster !== 'N/A'" aria-hidden [src]="movie?.Poster">
+      </div>
+    </div>
+  </div>
+
+  <div class="description">
+    <div class="container">
+      <h3>
+        <a [attr.href]="movie.Website" class="title">{{movie.Title}}</a>
+        <span class="small">{{movie.Year}}</span>
+      </h3>
+      <mat-divider></mat-divider>
+      <div>
+        <div class="director" *ngIf="movie.Director !== 'N/A'">Directed By:
+          <strong>{{movie.Director}}</strong>
+        </div>
+        <div class="writer" *ngIf="movie.Writer !== 'N/A'">Written By:
+          <strong>{{movie.Writer}}</strong>
+        </div>
+        <div class="production" *ngIf="movie.Production !== 'N/A'">{{movie.Production}}</div>
+      </div>
+
+      <p>{{movie.Plot}}</p>
+    </div>
+  </div>
+</div>

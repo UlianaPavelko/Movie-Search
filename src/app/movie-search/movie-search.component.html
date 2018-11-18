@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="full-width-form" (ngSubmit)="onSubmit($event)">
+  <form class="full-width-form" (ngSubmit)="onSubmit()">
     <mat-form-field class="movie-search-form">
       <input matInput placeholder="Search Movies" aria-label="Search Movies" [matAutocomplete]="auto" [formControl]="movieSearchControl">
       <mat-autocomplete #auto="matAutocomplete" class-list="movie-search">
@@ -13,37 +13,5 @@
       </mat-autocomplete>
     </mat-form-field>
   </form>
-  <div *ngIf="selectedMovie && !selectedMovie.Title">
-    <p>Sorry, movie not found</p>
-  </div>
-  <div class="main-container" *ngIf="selectedMovie && selectedMovie.Title">
-    <div class="movie-poster">
-      <div class="container">
-        <div class="filler">
-          <img class="poster-image" *ngIf="selectedMovie.Poster !== 'N/A'" aria-hidden [src]="selectedMovie?.Poster">
-        </div>
-      </div>
-    </div>
-
-    <div class="description">
-      <div class="container">
-        <h3>
-          <a [attr.href]="selectedMovie.Website" class="title">{{selectedMovie.Title}}</a>
-          <span class="small">{{selectedMovie.Year}}</span>
-        </h3>
-        <mat-divider></mat-divider>
-        <div>
-          <div class="director" *ngIf="selectedMovie.Director !== 'N/A'">Directed By:
-            <strong>{{selectedMovie.Director}}</strong>
-          </div>
-          <div class="writer" *ngIf="selectedMovie.Writer !== 'N/A'">Written By:
-            <strong>{{selectedMovie.Writer}}</strong>
-          </div>
-          <div class="production" *ngIf="selectedMovie.Production !== 'N/A'">{{selectedMovie.Production}}</div>
-        </div>
-
-        <p>{{selectedMovie.Plot}}</p>
-      </div>
-    </div>
-  </div>
+  <app-movie [movie]="selectedMovie"></app-movie>
 </div>

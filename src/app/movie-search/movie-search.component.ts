@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Movie } from '../store/movie';
 import * as MovieActions from '../store/actions';
 import { FormControl } from '@angular/forms';
-import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-movie-search',
@@ -52,7 +51,7 @@ export class MovieSearchComponent implements OnInit {
     );
   }
 
-  public onSubmit(eve) {
+  public onSubmit() {
     this.selectMovie(this.movieSearchControl.value);
   }
 }
