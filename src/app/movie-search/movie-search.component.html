@@ -1,0 +1,17 @@
+<div class="container">
+  <form class="full-width-form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="movie-search-form">
+      <input matInput placeholder="Search Movies" aria-label="Search Movies" [matAutocomplete]="auto" [formControl]="movieSearchControl">
+      <mat-autocomplete #auto="matAutocomplete" class-list="movie-search">
+        <mat-option *ngFor="let movie of movies | async" [value]="movie.Title" (click)="selectMovie(movie.Title)"
+          (onSelectionChange)="selectMovie(movie.Title)">
+          <span *ngIf="movie.Poster === 'N/A'" class="poster-filler"></span>
+          <img *ngIf="movie.Poster!== 'N/A'" class="poster" aria-hidden [src]="movie?.Poster" height="90">
+          <span class="movie-title">{{movie.Title}}</span> |
+          <small>Year: {{movie.Year}}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <app-movie [movie]="selectedMovie"></app-movie>
+</div>
