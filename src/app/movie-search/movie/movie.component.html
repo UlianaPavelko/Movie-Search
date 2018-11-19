@@ -4,9 +4,8 @@
 <div class="main-container" *ngIf="movie && movie.Title">
   <div class="movie-poster">
     <div class="container">
-      <div class="filler">
-        <img class="poster-image" *ngIf="movie.Poster !== 'N/A'" aria-hidden [src]="movie?.Poster">
-      </div>
+      <div class="filler" *ngIf="movie.Poster === 'N/A'"></div>
+      <img class="poster-image" *ngIf="movie.Poster !== 'N/A'" aria-hidden [src]="movie?.Poster">
     </div>
   </div>
 
